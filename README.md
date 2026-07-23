@@ -29,7 +29,22 @@ This repository contains my capstone project and weekly assignments for the FlyR
 
 As I progress through the internship, this repository will expand to include additional frontend frameworks, libraries, and tools used in future assignments and the final capstone project.
 
-  
+
+
+## Learning Roadmap
+
+This repository will grow throughout the FlyRank Frontend AI Engineering Internship. Future updates will include:
+
+- Weekly internship assignments
+
+- React projects
+
+- AI-assisted frontend development practices
+
+- Capstone project milestones
+
+- Learning notes and documentation
+
 ## Repository Structure
 
 This repository will be updated weekly with internship assignments, learning notes, and the final capstone project developed during the FlyRank Frontend AI Engineering Internship.
@@ -37,4 +52,3 @@ This repository will be updated weekly with internship assignments, learning not
 ## Author
 
 **Mughees Alvi**
-

@@ -37,3 +37,17 @@ When helping me:
 ## Goal
 
 Help me learn and understand frontend development instead of simply generating code.
+
+## Project Rules Learned (FE-03)
+
+### Rule 1
+
+Always use controlled React components for forms. Avoid uncontrolled inputs to keep validation and state management predictable.
+
+### Rule 2
+
+Separate large forms into reusable components (e.g., TextField, ThemeSelector, ToggleSwitch) instead of placing all UI and logic in one file.
+
+### Rule 3
+
+Every AI-generated feature must be manually verified by testing validation, accessibility, edge cases, and user interactions before committing code.

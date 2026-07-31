@@ -1,54 +1,16 @@
-# FlyRank Frontend AI Capstone
+# React + Vite
 
-## Overview
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-This repository contains my capstone project and weekly assignments for the FlyRank Frontend AI Engineering Internship.
+Currently, two official plugins are available:
 
-## Goals
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-- Learn AI-assisted frontend development
-- Build projects using modern frontend technologies
-- Improve problem-solving and software development skills
-- Document my learning journey
+## React Compiler
 
-## Technologies
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-### Core Stack
+## Expanding the ESLint configuration
 
-- **JavaScript** - Primary language for assignments and capstone work
-- **React** - UI library for building frontend projects *(currently learning)*
-
-### Development Tooling
-
-- **Git & GitHub** -Version control and assignment submission
-- **Cursor** - AI-assisted coding, debugging, and documentation
-
-
-
-### Planned Additions
-
-As I progress through the internship, this repository will expand to include additional frontend frameworks, libraries, and tools used in future assignments and the final capstone project.
-
-
-
-## Learning Roadmap
-
-This repository will grow throughout the FlyRank Frontend AI Engineering Internship. Future updates will include:
-
-- Weekly internship assignments
-
-- React projects
-
-- AI-assisted frontend development practices
-
-- Capstone project milestones
-
-- Learning notes and documentation
-
-## Repository Structure
-
-This repository will be updated weekly with internship assignments, learning notes, and the final capstone project developed during the FlyRank Frontend AI Engineering Internship.
-
-## Author
-
-**Mughees Alvi**
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.

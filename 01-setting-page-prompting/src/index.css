@@ -1,0 +1,70 @@
+/* ------------------------------------------------------------------
+   Design tokens. Light values live on :root; dark values override
+   them under [data-theme="dark"], which UserSettingsPage sets on
+   <html> via useEffect. Every themed color in the app should read
+   from one of these variables so a single attribute switch re-themes
+   the whole page, not just one component.
+   ------------------------------------------------------------------ */
+:root {
+  --bg: #eef1f8;
+  --surface: #ffffff;
+  --surface-border: #e2e5ec;
+  --text: #1f2933;
+  --text-secondary: #52606d;
+  --accent: #4f6df5;
+  --accent-hover: #3f59d6;
+  --accent-soft: rgba(79, 109, 245, 0.12);
+  --error: #e5484d;
+  --success-bg: #e3f6e8;
+  --success-text: #1a7f3c;
+  --switch-off: #cbd2d9;
+  --input-bg: #ffffff;
+  --input-border: #cbd2d9;
+  --shadow:
+    0 24px 48px -24px rgba(31, 41, 51, 0.35), 0 2px 8px rgba(31, 41, 51, 0.06);
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --bg: #0f1319;
+  --surface: #1b212c;
+  --surface-border: #2a3240;
+  --text: #eef1f6;
+  --text-secondary: #97a3b6;
+  --accent: #7d97ff;
+  --accent-hover: #96abff;
+  --accent-soft: rgba(125, 151, 255, 0.18);
+  --error: #ff7a7e;
+  --success-bg: rgba(58, 166, 102, 0.16);
+  --success-text: #6fd28f;
+  --switch-off: #384252;
+  --input-bg: #222a36;
+  --input-border: #313b4a;
+  --shadow:
+    0 24px 48px -24px rgba(0, 0, 0, 0.6), 0 2px 10px rgba(0, 0, 0, 0.35);
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}

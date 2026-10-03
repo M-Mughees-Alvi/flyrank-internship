@@ -1,0 +1,541 @@
+:root {
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --text: #1c2430;
+  --muted: #5b6675;
+  --accent: #2f6fed;
+  --border: #e3e7ed;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.navbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.navbar__inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar__brand {
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.navbar__links {
+  display: flex;
+  gap: 1rem;
+}
+
+.navbar__link {
+  text-decoration: none;
+  color: var(--muted);
+  padding: 0.25rem 0.5rem;
+  border-bottom: 2px solid transparent;
+}
+
+.navbar__link:hover {
+  color: var(--text);
+}
+
+.navbar__link.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+/* ---------- Exercise Explorer ---------- */
+
+.page-subtitle {
+  color: var(--muted);
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.exercise-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+.exercise-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.exercise-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(28, 36, 48, 0.12);
+}
+
+.exercise-card__image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  background: var(--border);
+}
+
+.exercise-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 1rem;
+}
+
+.exercise-card__title {
+  margin: 0 0 0.75rem;
+  font-size: 1.125rem;
+  line-height: 1.3;
+}
+
+.exercise-card__meta {
+  margin: 0 0 1rem;
+  display: grid;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.exercise-card__meta > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.exercise-card__meta dt {
+  color: var(--muted);
+}
+
+.exercise-card__meta dd {
+  margin: 0;
+  font-weight: 600;
+  text-align: right;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.badge--beginner {
+  background: #e3f6ec;
+  color: #177a4d;
+}
+
+.badge--intermediate {
+  background: #fff3da;
+  color: #9a6400;
+}
+
+.badge--advanced {
+  background: #fde6e6;
+  color: #b42323;
+}
+
+.btn {
+  margin-top: auto; /* pins the button to the bottom of the card */
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #ffffff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.1s ease;
+}
+
+.btn:hover {
+  background: #2459c4;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn:focus-visible {
+  outline: 3px solid rgba(47, 111, 237, 0.4);
+  outline-offset: 2px;
+}
+
+/* ---------- Loading / error / empty states ---------- */
+
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 3rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.status--error {
+  background: #fde6e6;
+  border-color: #f3c2c2;
+  color: #b42323;
+}
+
+.spinner {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- Search & filters ---------- */
+
+.filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  align-items: end;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.filters__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.filters__field--search {
+  grid-column: 1 / -1; /* search takes the full first row */
+}
+
+.filters__field label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.filters input,
+.filters select {
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+
+.filters input:focus-visible,
+.filters select:focus-visible {
+  outline: 3px solid rgba(47, 111, 237, 0.4);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+
+/* .btn pins itself to the bottom of cards with margin-top: auto; not wanted here. */
+.filters .btn {
+  margin-top: 0;
+}
+
+.btn--secondary {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+.btn--secondary:hover {
+  background: rgba(47, 111, 237, 0.08);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn--secondary:disabled:hover {
+  background: transparent;
+}
+
+.result-count {
+  margin: 0 0 1rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* ---------- Pagination ---------- */
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.pagination__info {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.pagination__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.pagination__page {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* .btn pins itself to the bottom of cards with margin-top: auto; not wanted here. */
+.pagination .btn {
+  margin-top: 0;
+}
+
+/* ---------- Link styled as a button (View Details) ---------- */
+
+a.btn {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* ---------- Exercise details page ---------- */
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1.25rem;
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.details {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.details__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.details__header h1 {
+  margin: 0;
+}
+
+.details__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .details__layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.details__images {
+  display: grid;
+  gap: 1rem;
+}
+
+.details__image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 8px;
+  background: var(--border);
+}
+
+.details__facts {
+  margin: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.details__facts > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.details__facts dt {
+  color: var(--muted);
+}
+
+.details__facts dd {
+  margin: 0;
+  font-weight: 600;
+  text-align: right;
+}
+
+.details__instructions {
+  margin-top: 2rem;
+}
+
+.details__instructions h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.25rem;
+}
+
+.details__instructions ol {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: grid;
+  gap: 0.75rem;
+  line-height: 1.6;
+}
+
+.details__muted {
+  margin: 0;
+  color: var(--muted);
+}
+
+.details__notfound-title {
+  margin: 0 0 0.5rem;
+  color: var(--text);
+}
+
+/* ---------- My Workout ---------- */
+
+/* Holds View Details + Add to Workout, pinned to the bottom of the card. */
+.exercise-card__actions {
+  margin-top: auto;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.exercise-card__actions .btn {
+  margin-top: 0;
+}
+
+/* "Already added" state: green and clearly not clickable. */
+.btn--added,
+.btn--added:hover,
+.btn--added:disabled {
+  background: #e3f6ec;
+  color: #177a4d;
+  border: 1px solid #177a4d;
+  opacity: 1;
+  cursor: default;
+  transform: none;
+}
+
+.btn--danger {
+  background: transparent;
+  color: #b42323;
+  border: 1px solid #b42323;
+}
+
+.btn--danger:hover {
+  background: #fde6e6;
+}
+
+/* Details page: add control + confirmation line */
+.details__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.details__actions .btn {
+  margin-top: 0;
+}
+
+.details__added-note {
+  margin: 0;
+  color: #177a4d;
+  font-weight: 600;
+}
+
+.details__added-note:empty {
+  display: none;
+}
+
+.details__added-note a {
+  color: var(--accent);
+}
+
+/* Empty workout state */
+.status--empty p {
+  margin: 0 0 1rem;
+}
+
+.status__title {
+  margin: 0 0 0.5rem;
+  color: var(--text);
+}

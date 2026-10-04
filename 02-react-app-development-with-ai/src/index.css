@@ -1,138 +1,457 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700;800&display=swap");
+
 :root {
-  --bg: #f7f8fa;
-  --surface: #ffffff;
-  --text: #1c2430;
-  --muted: #5b6675;
-  --accent: #2f6fed;
-  --border: #e3e7ed;
+  color-scheme: dark;
+
+  /* Iron: surfaces, lightest layer last */
+  --black: #000000;
+  --bg: #0e1014;
+  --surface: #171a20;
+  --surface-2: #1e222a;
+  --line: #2a2f3a;
+  --line-strong: #3d4452;
+
+  /* Text */
+  --ink: #f3f5f8;
+  --ink-soft: #d3d8e0;
+  --muted: #98a1b0;
+
+  /* Ember red */
+  --red: #e10600;
+  --red-dark: #b30500;
+  --red-text: #ff5f54;
+  --red-wash: rgba(225, 6, 0, 0.14);
+
+  /* Volt: progress / done / beginner */
+  --volt: #c6f432;
+  --volt-wash: rgba(198, 244, 50, 0.12);
+
+  /* Amber: intermediate */
+  --amber: #ffb020;
+  --amber-wash: rgba(255, 176, 32, 0.12);
+
+  --font-body:
+    "Barlow", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display:
+    "Barlow Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+
+  --radius: 14px;
+  --max-width: 1100px;
 }
 
-* {
+/* ---------- 2. Base ---------- */
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+}
+
+html {
+  accent-color: var(--red);
+  background: var(--bg);
 }
 
 body {
   margin: 0;
-  font-family:
-    system-ui,
-    -apple-system,
-    "Segoe UI",
-    Roboto,
-    sans-serif;
+  min-height: 100vh;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--ink);
   background: var(--bg);
-  color: var(--text);
+  -webkit-font-smoothing: antialiased;
 }
 
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+h1 {
+  font-size: clamp(2.25rem, 5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background: var(--red);
+  color: #ffffff;
+}
+
+:focus-visible {
+  outline: 3px solid var(--volt);
+  outline-offset: 2px;
+}
+
+/* ---------- 3. Layout ---------- */
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 2rem 1rem 3.5rem;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 2.5rem 1.5rem 4.5rem;
+  }
+}
+
+/* Page titles get the red slash underneath (the Home hero is excluded). */
+.container > section:not(.hero) > h1::after {
+  content: "";
+  display: block;
+  width: 4.5rem;
+  height: 0.4rem;
+  margin-top: 0.75rem;
+  background: var(--red);
+  transform: skewX(-20deg);
+  transform-origin: left;
+}
+
+.page-subtitle {
+  max-width: 60ch;
+  margin: 1rem 0 1.75rem;
+  color: var(--muted);
+}
+
+/* ---------- 4. Navbar ---------- */
+
 .navbar {
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--black);
+  border-bottom: 3px solid var(--red);
 }
 
 .navbar__inner {
-  max-width: 960px;
+  max-width: var(--max-width);
+  min-height: 64px;
   margin: 0 auto;
-  padding: 0 1rem;
-  height: 56px;
+  padding: 0.5rem 1rem;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  gap: 0.5rem 1rem;
+}
+
+@media (min-width: 768px) {
+  .navbar__inner {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
 }
 
 .navbar__brand {
-  font-weight: 700;
-  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: 0.04em;
+}
+
+/* The slash mark */
+.navbar__brand::before {
+  content: "";
+  width: 0.6rem;
+  height: 1.5rem;
+  margin-right: 0.65rem;
+  background: var(--red);
+  transform: skewX(-20deg);
 }
 
 .navbar__links {
   display: flex;
-  gap: 1rem;
+  gap: 0.25rem;
 }
 
 .navbar__link {
-  text-decoration: none;
+  padding: 0.45rem 0.85rem;
+  border-bottom: 3px solid transparent;
   color: var(--muted);
-  padding: 0.25rem 0.5rem;
-  border-bottom: 2px solid transparent;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .navbar__link:hover {
-  color: var(--text);
+  color: #ffffff;
 }
 
 .navbar__link.active {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
+  color: #ffffff;
+  border-bottom-color: var(--red);
 }
 
-.container {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-}
-/* ---------- Exercise Explorer ---------- */
+@media (max-width: 480px) {
+  .navbar__brand {
+    font-size: 1.45rem;
+  }
 
-.page-subtitle {
-  color: var(--muted);
-  margin-top: 0;
-  margin-bottom: 1.5rem;
+  .navbar__link {
+    padding: 0.4rem 0.55rem;
+    font-size: 1.1rem;
+  }
 }
+
+/* ---------- 5. Buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-height: 2.75rem;
+  padding: 0.5rem 1.1rem;
+  border: 2px solid var(--red);
+  border-radius: 8px;
+  background: var(--red);
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 1.1;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.1s ease;
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--red-dark);
+  border-color: var(--red-dark);
+  box-shadow: 0 0 0 4px var(--red-wash);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn--secondary {
+  background: transparent;
+  border-color: var(--line-strong);
+  color: var(--ink);
+}
+
+.btn--secondary:hover:not(:disabled) {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--bg);
+  box-shadow: none;
+}
+
+/* Destructive: Remove */
+.btn--danger {
+  background: transparent;
+  border-color: var(--red);
+  color: var(--red-text);
+}
+
+.btn--danger:hover:not(:disabled) {
+  background: var(--red);
+  border-color: var(--red);
+  color: #ffffff;
+}
+
+.btn--added,
+.btn--added:disabled {
+  background: var(--volt-wash);
+  border-color: var(--volt);
+  color: var(--volt);
+  opacity: 1;
+  cursor: default;
+}
+.exercise-card__body > .btn {
+  margin-top: auto;
+}
+
+/* ---------- 6. Difficulty badges ---------- */
+/* Heat scale: the dots and the color both rise with difficulty. */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  padding: 0.1rem 0.7rem;
+  border: 1.5px solid transparent;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 1.35;
+}
+
+.badge::before {
+  font-size: 0.55em;
+  letter-spacing: 0.12em;
+}
+
+.badge--beginner {
+  background: var(--volt-wash);
+  border-color: rgba(198, 244, 50, 0.45);
+  color: var(--volt);
+}
+
+.badge--beginner::before {
+  content: "●";
+  content: "●" / "";
+}
+
+.badge--intermediate {
+  background: var(--amber-wash);
+  border-color: rgba(255, 176, 32, 0.45);
+  color: var(--amber);
+}
+
+.badge--intermediate::before {
+  content: "●●";
+  content: "●●" / "";
+}
+
+.badge--advanced {
+  background: var(--red);
+  border-color: var(--red);
+  color: #ffffff;
+}
+
+.badge--advanced::before {
+  content: "●●●";
+  content: "●●●" / "";
+}
+
+/* ---------- 7. Exercise grid and cards (Explorer + My Workout) ---------- */
 
 .exercise-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.75rem;
 }
 
 .exercise-card {
+  --ring: 0 0 0 0 transparent;
+  --lift: 0 12px 28px rgba(0, 0, 0, 0.55);
+
   display: flex;
   flex-direction: column;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
   overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--line-strong); /* difficulty strip, colored below */
+  border-radius: var(--radius);
+  box-shadow:
+    var(--ring),
+    var(--lift),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
 }
 
-.exercise-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 24px rgba(28, 36, 48, 0.12);
+/* The strip takes the color of the card's difficulty badge. */
+.exercise-card:has(.badge--beginner) {
+  border-top-color: var(--volt);
 }
 
+.exercise-card:has(.badge--intermediate) {
+  border-top-color: var(--amber);
+}
+
+.exercise-card:has(.badge--advanced) {
+  border-top-color: var(--red);
+}
+
+/* A card whose exercise is already in the workout gets a volt outline. */
+.exercise-card:has(.btn--added) {
+  --ring: 0 0 0 1px rgba(198, 244, 50, 0.55);
+}
+
+.exercise-card:hover {
+  --lift: 0 18px 36px rgba(0, 0, 0, 0.7);
+  transform: translateY(-4px);
+}
+
+.exercise-card:focus-within {
+  --ring: 0 0 0 2px var(--line-strong);
+}
+
+/* The photo sits inside a framed margin, like a print mounted on a card. */
 .exercise-card__image {
-  display: block;
-  width: 100%;
+  width: calc(100% - 1.3rem);
+  margin: 0.65rem 0.65rem 0;
   aspect-ratio: 16 / 10;
   object-fit: cover;
-  background: var(--border);
+  border-radius: 10px;
+  background: var(--surface-2);
 }
 
 .exercise-card__body {
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: 1rem;
+  padding: 1rem 1.1rem 1.1rem;
 }
 
 .exercise-card__title {
-  margin: 0 0 0.75rem;
-  font-size: 1.125rem;
-  line-height: 1.3;
+  margin: 0 0 0.85rem;
+  color: #ffffff;
+  font-size: 1.45rem;
+  line-height: 1.15;
 }
 
 .exercise-card__meta {
-  margin: 0 0 1rem;
   display: grid;
-  gap: 0.4rem;
-  font-size: 0.9rem;
+  margin: 0 0 1.1rem;
+  font-size: 0.95rem;
 }
 
 .exercise-card__meta > div {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.exercise-card__meta > div:last-child {
+  border-bottom: 0;
 }
 
 .exercise-card__meta dt {
@@ -141,109 +460,30 @@ body {
 
 .exercise-card__meta dd {
   margin: 0;
+  color: var(--ink);
   font-weight: 600;
   text-align: right;
 }
 
-.badge {
-  display: inline-block;
-  padding: 0.15rem 0.6rem;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  font-weight: 600;
+/* View Details + Add to Workout, pinned to the bottom of the card */
+.exercise-card__actions {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: auto;
 }
 
-.badge--beginner {
-  background: #e3f6ec;
-  color: #177a4d;
-}
-
-.badge--intermediate {
-  background: #fff3da;
-  color: #9a6400;
-}
-
-.badge--advanced {
-  background: #fde6e6;
-  color: #b42323;
-}
-
-.btn {
-  margin-top: auto; /* pins the button to the bottom of the card */
-  padding: 0.6rem 1rem;
-  border: none;
-  border-radius: 8px;
-  background: var(--accent);
-  color: #ffffff;
-  font: inherit;
-  font-weight: 600;
-  cursor: pointer;
-  transition:
-    background 0.2s ease,
-    transform 0.1s ease;
-}
-
-.btn:hover {
-  background: #2459c4;
-}
-
-.btn:active {
-  transform: scale(0.98);
-}
-
-.btn:focus-visible {
-  outline: 3px solid rgba(47, 111, 237, 0.4);
-  outline-offset: 2px;
-}
-
-/* ---------- Loading / error / empty states ---------- */
-
-.status {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  padding: 3rem 1rem;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  color: var(--muted);
-  text-align: center;
-}
-
-.status--error {
-  background: #fde6e6;
-  border-color: #f3c2c2;
-  color: #b42323;
-}
-
-.spinner {
-  width: 1.25rem;
-  height: 1.25rem;
-  border: 3px solid var(--border);
-  border-top-color: var(--accent);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* ---------- Search & filters ---------- */
+/* ---------- 8. Search & filters ---------- */
 
 .filters {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   gap: 1rem;
   align-items: end;
   margin-bottom: 1rem;
-  padding: 1rem;
+  padding: 1.1rem;
   background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
 }
 
 .filters__field {
@@ -257,61 +497,44 @@ body {
 }
 
 .filters__field label {
-  font-size: 0.8rem;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
   font-weight: 600;
-  color: var(--muted);
 }
 
 .filters input,
 .filters select {
   width: 100%;
-  padding: 0.55rem 0.7rem;
-  border: 1px solid var(--border);
+  min-height: 2.75rem;
+  padding: 0.55rem 0.75rem;
+  border: 1.5px solid var(--line-strong);
   border-radius: 8px;
-  background: var(--surface);
-  color: var(--text);
+  background: var(--bg); /* inset: darker than the panel around it */
+  color: var(--ink);
   font: inherit;
+}
+
+.filters input::placeholder {
+  color: var(--muted);
 }
 
 .filters input:focus-visible,
 .filters select:focus-visible {
-  outline: 3px solid rgba(47, 111, 237, 0.4);
-  outline-offset: 1px;
-  border-color: var(--accent);
-}
-
-/* .btn pins itself to the bottom of cards with margin-top: auto; not wanted here. */
-.filters .btn {
-  margin-top: 0;
-}
-
-.btn--secondary {
-  background: transparent;
-  color: var(--accent);
-  border: 1px solid var(--accent);
-}
-
-.btn--secondary:hover {
-  background: rgba(47, 111, 237, 0.08);
-}
-
-.btn:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
-.btn--secondary:disabled:hover {
-  background: transparent;
+  border-color: var(--red);
+  outline: 3px solid rgba(225, 6, 0, 0.4);
+  outline-offset: 0;
 }
 
 .result-count {
   margin: 0 0 1rem;
   color: var(--muted);
-  font-size: 0.9rem;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
   font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
-/* ---------- Pagination ---------- */
+/* ---------- 9. Pagination ---------- */
 
 .pagination {
   display: flex;
@@ -319,74 +542,152 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  margin-top: 1.5rem;
-  padding: 1rem;
+  margin-top: 1.75rem;
+  padding: 1rem 1.1rem;
   background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
 }
 
 .pagination__info {
   margin: 0;
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
 }
 
 .pagination__controls {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.85rem;
 }
 
 .pagination__page {
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
   white-space: nowrap;
 }
 
-/* .btn pins itself to the bottom of cards with margin-top: auto; not wanted here. */
-.pagination .btn {
-  margin-top: 0;
-}
+/* ---------- 10. Loading, error and empty states ---------- */
 
-/* ---------- Link styled as a button (View Details) ---------- */
-
-a.btn {
-  display: inline-block;
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 3rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--muted);
   text-align: center;
-  text-decoration: none;
 }
 
-/* ---------- Exercise details page ---------- */
+.status--error {
+  background: var(--red-wash);
+  border-color: rgba(225, 6, 0, 0.45);
+  border-left: 6px solid var(--red);
+  color: var(--red-text);
+  font-weight: 600;
+}
+
+.status--empty {
+  padding: 3.5rem 1.25rem;
+  border: 2px dashed var(--line-strong);
+}
+
+.status--empty p {
+  margin: 0.5rem 0 1.25rem;
+}
+
+.status__title {
+  color: var(--ink);
+}
+
+.spinner {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 3px solid var(--line-strong);
+  border-top-color: var(--red);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- 11. Exercise details page ---------- */
 
 .back-link {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   margin-bottom: 1.25rem;
-  color: var(--accent);
-  font-weight: 600;
+  color: var(--red-text);
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   text-decoration: none;
 }
 
 .back-link:hover {
   text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .details {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
   padding: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 5px solid var(--red);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55);
+}
+
+@media (min-width: 768px) {
+  .details {
+    padding: 2rem;
+  }
 }
 
 .details__header {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
+  gap: 0.75rem 1rem;
+  margin-bottom: 1.25rem;
 }
 
 .details__header h1 {
+  color: #ffffff;
+  font-size: clamp(2rem, 4.5vw, 2.75rem);
+}
+
+.details__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.details__added-note {
   margin: 0;
+  color: var(--volt);
+  font-weight: 600;
+}
+
+.details__added-note:empty {
+  display: none;
+}
+
+.details__added-note a {
+  color: var(--volt);
+  font-weight: 700;
+  text-underline-offset: 3px;
 }
 
 .details__layout {
@@ -408,27 +709,26 @@ a.btn {
 }
 
 .details__image {
-  display: block;
   width: 100%;
   aspect-ratio: 16 / 10;
   object-fit: cover;
-  border-radius: 8px;
-  background: var(--border);
+  border-radius: 10px;
+  background: var(--surface-2);
 }
 
 .details__facts {
-  margin: 0;
   display: grid;
   gap: 0.75rem;
+  margin: 0;
 }
 
 .details__facts > div {
   display: flex;
-  justify-content: space-between;
   align-items: baseline;
+  justify-content: space-between;
   gap: 1rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--line);
 }
 
 .details__facts dt {
@@ -437,25 +737,55 @@ a.btn {
 
 .details__facts dd {
   margin: 0;
+  color: var(--ink);
   font-weight: 600;
   text-align: right;
 }
 
 .details__instructions {
-  margin-top: 2rem;
+  margin-top: 2.25rem;
 }
 
 .details__instructions h2 {
-  margin: 0 0 0.75rem;
-  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: #ffffff;
+  font-size: 1.75rem;
 }
 
+/* Instructions are a real sequence, so the steps are numbered. */
 .details__instructions ol {
-  margin: 0;
-  padding-left: 1.25rem;
   display: grid;
-  gap: 0.75rem;
-  line-height: 1.6;
+  gap: 1rem;
+  max-width: 70ch;
+  margin: 0;
+  padding: 0;
+  color: var(--ink-soft);
+  list-style: none;
+  counter-reset: step;
+}
+
+.details__instructions li {
+  position: relative;
+  padding-left: 2.9rem;
+  counter-increment: step;
+}
+
+.details__instructions li::before {
+  content: counter(step);
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--red);
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1;
 }
 
 .details__muted {
@@ -464,78 +794,123 @@ a.btn {
 }
 
 .details__notfound-title {
-  margin: 0 0 0.5rem;
-  color: var(--text);
+  color: var(--ink);
 }
 
-/* ---------- My Workout ---------- */
+/* ---------- 12. Home hero ---------- */
 
-/* Holds View Details + Add to Workout, pinned to the bottom of the card. */
-.exercise-card__actions {
-  margin-top: auto;
-  display: grid;
-  gap: 0.5rem;
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(2.5rem, 7vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+  background: linear-gradient(135deg, var(--black) 0%, var(--surface) 100%);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  color: #ffffff;
 }
 
-.exercise-card__actions .btn {
-  margin-top: 0;
+/* Two slashes: a wide red one and a thin volt one. */
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  top: -10%;
+  height: 120%;
+  transform: skewX(-20deg);
+  pointer-events: none;
 }
 
-/* "Already added" state: green and clearly not clickable. */
-.btn--added,
-.btn--added:hover,
-.btn--added:disabled {
-  background: #e3f6ec;
-  color: #177a4d;
-  border: 1px solid #177a4d;
-  opacity: 1;
-  cursor: default;
-  transform: none;
+.hero::before {
+  right: 9%;
+  width: 5.5rem;
+  background: var(--red);
 }
 
-.btn--danger {
-  background: transparent;
-  color: #b42323;
-  border: 1px solid #b42323;
+.hero::after {
+  right: calc(9% + 7rem);
+  width: 0.75rem;
+  background: var(--volt);
 }
 
-.btn--danger:hover {
-  background: #fde6e6;
+.hero > * {
+  position: relative;
+  z-index: 1;
 }
 
-/* Details page: add control + confirmation line */
-.details__actions {
+.hero__title {
+  margin-bottom: 1.25rem;
+  font-size: clamp(2.9rem, 9vw, 5.75rem);
+  line-height: 0.95;
+}
+
+.hero__text {
+  max-width: min(30rem, 62%);
+  margin: 0 0 2rem;
+  color: var(--ink-soft);
+  font-size: 1.15rem;
+}
+
+.hero__actions {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 0.75rem 1rem;
-  margin-bottom: 1.5rem;
+  gap: 0.75rem;
 }
 
-.details__actions .btn {
-  margin-top: 0;
+.hero .btn {
+  min-height: 3rem;
+  padding: 0.6rem 1.5rem;
+  font-size: 1.25rem;
 }
 
-.details__added-note {
-  margin: 0;
-  color: #177a4d;
-  font-weight: 600;
+.hero .btn--secondary {
+  border-color: #ffffff;
+  color: #ffffff;
 }
 
-.details__added-note:empty {
-  display: none;
+.hero .btn--secondary:hover:not(:disabled) {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: var(--black);
 }
 
-.details__added-note a {
-  color: var(--accent);
+@media (max-width: 640px) {
+  .hero {
+    padding-right: 2.75rem;
+  }
+
+  .hero::before {
+    right: -2rem;
+    width: 3.5rem;
+  }
+
+  .hero::after {
+    display: none;
+  }
+
+  .hero__text {
+    max-width: none;
+  }
 }
 
-/* Empty workout state */
-.status--empty p {
-  margin: 0 0 1rem;
-}
+/* ---------- 13. Reduced motion ---------- */
 
-.status__title {
-  margin: 0 0 0.5rem;
-  color: var(--text);
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .navbar__link,
+  .exercise-card {
+    transition: none;
+  }
+
+  .exercise-card:hover {
+    transform: none;
+  }
+
+  .btn:active:not(:disabled) {
+    transform: none;
+  }
+
+  .spinner {
+    animation-duration: 2s;
+  }
 }
